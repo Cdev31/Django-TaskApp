@@ -325,7 +325,7 @@ Backup of *.doc*
 ### Python Patch ###
 # Poetry local configuration file - https://python-poetry.org/docs/configuration/#local-configuration
 poetry.toml
-
+node_modules
 # ruff
 .ruff_cache/
 
