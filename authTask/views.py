@@ -3,11 +3,6 @@ from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 
-# Create your views here.
-
-def home( request: HttpRequest ):
-    return render( request=request, template_name='home.html' )
-
 def login( request: HttpRequest ):
     if request.method == 'GET':
         return render( request=request, template_name='login.html' )

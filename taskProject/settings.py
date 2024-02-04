@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+STATIC_URL = BASE_DIR  / 'static'
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'task',
-    'authTask'
+    'authTask',
+    'compressor'
+]
+
+COMPRESS_ROOT= BASE_DIR / 'static'
+
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 ]
 
 MIDDLEWARE = [
@@ -52,11 +64,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'taskProject.urls'
-
+print(BASE_DIR / 'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
