@@ -1,4 +1,4 @@
-{% extends '_base.html' %}
+{% extends 'base.html' %}
 
 
 {% block content %}
@@ -6,24 +6,31 @@
     <div class="flex bg-green-600 self-center text-white text-4xl font-black w-64 h-44 justify-center rounded-md">
         <p class="self-center text-center"><a href="/">TaskApp</a></p>
     </div>
-    <form class="self-center flex flex-col gap-2" action="" method="post">
+    <form class="self-center flex flex-col gap-2"  method="post">
+        {% csrf_token %}
+        <div class="flex flex-col gap-1 mt-2">
+            <label class="text-green-900/60 font-bold">User name</label>
+            <input name="username" class="focus:outline-none border-b-2 border-green-600 
+            focus:border-green-600/80 font-semibold pl-2 text-black/70 " type="text" />
+        </div>
         <div class="flex flex-col gap-1 mt-2">
             <label class="text-green-900/60 font-bold">Email</label>
-            <input class="focus:outline-none border-b-2 border-green-600 
+            <input name="email" class="focus:outline-none border-b-2 border-green-600 
             focus:border-green-600/80 font-semibold pl-2 text-black/70 " type="email" />
         </div>
         <div class="flex flex-col gap-1">
             <label class="text-green-900/60 font-bold">Password</label>
-            <input class="focus:outline-none border-b-2 border-green-600 
+            <input name="password1" class="focus:outline-none border-b-2 border-green-600 
             focus:border-green-600/80 font-semibold pl-2 text-black/70 " type="password" />
         </div>
         <div class="flex flex-col gap-1 mb-1">
             <label class="text-green-900/60 font-bold">Verify password</label>
-            <input class="focus:outline-none border-b-2 border-green-600 
+            <input name="password2" class="focus:outline-none border-b-2 border-green-600 
             focus:border-green-600/80 font-semibold pl-2 text-black/70 " type="password" />
         </div>
+        <span class="font-bold text-sm text-red-600">{{ error }}</span>
         <button class="w-full text-white rounded-md h-10 text-xl font-bold bg-green-600 hover:scale-[1.02] hover:bg-green-600/80">Signup</button>
-        <span class="text-sm font-bold text-black/80">ya tienes cuenta? <a class="hover:text-blue-800 border-b-2 border-black border-black/70 hover:border-blue-800" href="/login" >inicia sesion aqui</a></span>
+        <span class="text-sm font-bold text-black/80">ya tienes cuenta? <a class="hover:text-blue-800 border-b-2 border-black border-black/70 hover:border-blue-800" href="/auth/login" >inicia sesion aqui</a></span>
     </form>
 </section>
 {% endblock %}

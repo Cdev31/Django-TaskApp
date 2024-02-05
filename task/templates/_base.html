@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{% static 'src/output.css' %}">
     {% endcompress %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>Home</title>
+    
+    <title>Task App</title>
 </head>
 <body class="flex flex-col gap-1 h-[100vh]">
     <nav class="border-b-2 border-green-500 p-1">
@@ -19,10 +20,10 @@
             <li class="basis-[75%] font-black text-3xl p-2 text-green-600"><a href="/">TaskApp</a></li>
             <div class="flex gap-2">
                 <li class="font-bold text-xl border-b-2 pt-4 rounded-b-md p-2 text-green-600 hover:scale-[1.02]">
-                    <a href="auth/login">Login</a>
+                    <a href="/auth/login">Login</a>
                 </li>
                 <li class="font-bold text-xl border-b-2 pt-4 rounded-b-md p-2 text-green-600 hover:scale-[1.02]">
-                    <a href="auth/signup">SignUp</a>
+                    <a href="/auth/signup">SignUp</a>
                 </li>
             </div>
         </ul>
@@ -41,5 +42,8 @@
         </div>
        <p class="bg-white w-full text-green-600 font-bold text-center">Proyecto creado por Kalet Chavez</p>
     </footer>
+    {% compress js %}
+    <script src="{% static 'js/script.js' %}"></script>
+    {% endcompress %}
 </body>
 </html>

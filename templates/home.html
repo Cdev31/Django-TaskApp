@@ -19,12 +19,26 @@
         <ul class="flex gap-2">
             <li class="basis-[75%] font-black text-3xl p-2 text-green-600"><a href="/">TaskApp</a></li>
             <div class="flex gap-2">
+               
+                {% if user.is_authenticated %}
                 <li class="font-bold text-xl border-b-2 pt-4 rounded-b-md p-2 text-green-600 hover:scale-[1.02]">
-                    <a href="auth/login">Login</a>
+                    <a href="/task">Task</a>
                 </li>
+               {% else %}
+               <li class="font-bold text-xl border-b-2 pt-4 rounded-b-md p-2 text-green-600 hover:scale-[1.02]">
+                    <a href="/auth/login">Login</a>
+                </li>
+               {% endif %}
+
+               {% if user.is_authenticated %}
                 <li class="font-bold text-xl border-b-2 pt-4 rounded-b-md p-2 text-green-600 hover:scale-[1.02]">
-                    <a href="auth/signup">SignUp</a>
+                    <a href="/logout">Logout</a>
                 </li>
+               {% else %}
+               <li class="font-bold text-xl border-b-2 pt-4 rounded-b-md p-2 text-green-600 hover:scale-[1.02]">
+                    <a href="/auth/signup">SignUp</a>
+                </li>
+               {% endif %}
             </div>
         </ul>
     </nav>
