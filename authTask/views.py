@@ -9,7 +9,11 @@ def user_login( request: HttpRequest ):
     if request.method == 'GET':
         return render( request=request, template_name='login.html' )
     elif request.method == 'POST':
-        user = authenticate( request, email=request.POST['email'], password=request.POST['password'] )
+        user = authenticate( request,
+                username=request.POST['email'],
+                password=request.POST['password']
+                )
+        print(user)
         if user is None:
             return render( request=request, template_name='login.html' , context={
                 'error': 'user not valid'

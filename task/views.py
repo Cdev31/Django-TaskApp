@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
+from .load_image import load
 
+@login_required
 def task( request:HttpRequest ):
     return render( 
         request=request, 
@@ -44,3 +47,5 @@ def detail_task( request, id ):
 def create( request: HttpRequest ):
     if request.method == 'GET':
         return render( request=request, template_name='create_task.html' )
+    elif request.method == 'POST':
+       print(  load( file = request.FILES['taskImage'] ) )

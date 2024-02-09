@@ -4,3 +4,5 @@ from django.http import HttpRequest
 
 def home( request: HttpRequest ):
     return render( request=request, template_name='home.html' )
+
+
