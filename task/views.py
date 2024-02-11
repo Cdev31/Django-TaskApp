@@ -47,5 +47,4 @@ def detail_task( request, id ):
 def create( request: HttpRequest ):
     if request.method == 'GET':
         return render( request=request, template_name='create_task.html' )
-    elif request.method == 'POST':
-       print(  load( file = request.FILES['taskImage'] ) )
+    # elif request.method == 'POST':
