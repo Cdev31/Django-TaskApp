@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+
+{% load compress %}
+{% load static %}
+
+{% block content %}
+<section class="flex flex-col gap-1 h-[70vh] mt-10 mb-16">
+    <h2 class="text-3xl text-green-900 self-center font-semibold">Mis Categorias</h2>
+    {% if categories|length == 0 %}
+    <span class="self-center text-lg text-black/70 animate-bounce mt-10 font-semibold">Aun no hay categorias</span>
+    {% else %}
+        {% for category in categories %}
+        <section class="flex flex-col gap-1 border-b-4 rounded-md p-1 m-1">
+            <h2 class="text-2xl font-black pb-2 text-green-800">{{ category.category_name }}</h2>
+            <p>{{ category.description }}</p>
+           <div class="flex gap-1 self-end">
+                <a href="/task/categories/update/{{ category.id }}" class="font-bold mt-2 p-1 rounded-md bg-blue-600 text-white text-center hover:scale-[1.02] cursor-pointer">Editar</a>
+                <button type="button"  class="eliminated-category font-bold mt-2 p-1 rounded-md bg-red-600 text-white  hover:scale-[1.02] cursor-pointer">Eliminar</button>
+                <input type="text" class="hidden category-id" value="{{ category.id }}" />
+            </div>
+        </section>
+        {% endfor %}
+    {% endif %}
+</section>
+<button  class="bg-green-600 fixed right-2 rounded-full hover:bg-green-900/80 bottom-28 h-12 w-12  
+text-center text-3xl font-bold hover:animate-spin">
+    <a href="/task/categories/create">
+        <i class="material-icons text-white ">add</i>
+    </a>
+</button>
+
+<div id="eliminated-category-modal" class="absolute w-full hidden flex-col h-full bg-black/20 top-0 justify-center">
+    <div id="close-eliminated-modal" class="self-end text-red-700 cursor-pointer hover:scale-[1.02]">
+        <i class="material-symbols-outlined">
+          cancel
+        </i>
+    </div>
+    <div class="bg-white self-center h-56 p-1 flex flex-col gap-2 justify-center rounded-md">
+        <h2 class="text-xl mb-5 text-black/70 font-bold">Deseas Eliminar esta categoria?</h2>
+        <p class="text-sm text-black/70 font-semibold">La categoria se eliminara permanentemente</p>
+        <span class="text-sm font-bold text-red-600 self-center">{{ error }}</span> 
+        <form method="get" class="w-full">
+            <button 
+            class="confirmation-eliminated font-bold text-white bg-red-600 rounded-md h-10 w-full hover:scale-[1.02]">Confirmar</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/openModal.js' %}"></script>
+{% endblock %}
+

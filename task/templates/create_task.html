@@ -1,5 +1,9 @@
 {% extends '_base.html' %}
 
+{% load compress %}
+{% load static %}
+
+
 {% block content %}
 <section>
     <form class="flex flex-col gap-1 sm:flex-row" method="post" enctype="multipart/form-data">
@@ -34,9 +38,9 @@
             <div class="self-center flex flex-col gap-1 mt-2">
                 <label class="bg-white font-bold text-green-700">Categoria</label>
                 <select name="categorie" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
-                    <option value="">Limpieza</option>
-                    <option value="">Academico</option>
-                    <option value="">Deporte</option>
+                {% for category in categories %}
+                 <option>{{ category.category_name }}</option>
+                {% endfor %}
                 </select>
             </div>
             <div class="self-center flex flex-col mt-2 gap-1">
@@ -47,4 +51,8 @@
        </section>
     </form>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
