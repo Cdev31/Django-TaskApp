@@ -14,8 +14,10 @@
             <h2 class="text-2xl font-black pb-2 text-green-800">{{ category.category_name }}</h2>
             <p>{{ category.description }}</p>
            <div class="flex gap-1 self-end">
-                <a href="/task/categories/update/{{ category.id }}" class="font-bold mt-2 p-1 rounded-md bg-blue-600 text-white text-center hover:scale-[1.02] cursor-pointer">Editar</a>
-                <button type="button"  class="eliminated-category font-bold mt-2 p-1 rounded-md bg-red-600 text-white  hover:scale-[1.02] cursor-pointer">Eliminar</button>
+                <a href="/task/categories/update/{{ category.id }}" class="font-bold mt-2 p-1 rounded-md bg-blue-600
+                 text-white text-center hover:scale-[1.02] cursor-pointer">Editar</a>
+                <button type="button"  class="eliminated-category font-bold mt-2 p-1 rounded-md bg-red-600 text-white 
+                 hover:scale-[1.02] cursor-pointer">Eliminar</button>
                 <input type="text" class="hidden category-id" value="{{ category.id }}" />
             </div>
         </section>
@@ -41,7 +43,9 @@ text-center text-3xl font-bold hover:animate-spin">
         <span class="text-sm font-bold text-red-600 self-center">{{ error }}</span> 
         <form method="get" class="w-full">
             <button 
-            class="confirmation-eliminated font-bold text-white bg-red-600 rounded-md h-10 w-full hover:scale-[1.02]">Confirmar</button>
+            class="confirmation-eliminated font-bold text-white bg-red-600 rounded-md h-10 w-full 
+            hover:scale-[1.02]">Confirmar</button>
+            <input id="category-id" type="text" class="hidden" />
         </form>
     </div>
 </div>

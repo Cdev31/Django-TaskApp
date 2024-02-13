@@ -55,7 +55,24 @@ def create( request: HttpRequest ):
                            'categories': categories
                        }
                         )
-    # elif request.method == 'POST':
+    elif request.method == 'POST':
+        try:
+            url = load( request.FILES['taskImage'] )
+            task = request.POST
+            new_task = Task( title=task['title'], description=task['description'],
+                            image= url, important_level=task['level'], date_completed=task['date'],
+                            category=task['category']
+                            )
+            new_task.save()
+            redirect('/task')
+        except:
+            return render( request=request, 
+                          template_name='create_task.html',
+                            context={
+                           'categories': categories,
+                           'error': 'Campos invalidos'
+                        })
+
 
 
 

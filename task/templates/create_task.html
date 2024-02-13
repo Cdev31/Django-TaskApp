@@ -14,8 +14,8 @@
             <img src="" id="previewImage" class="h-44 self-center rounded-md" />
             <button type="button" class=" cursor-pointer self-center p-1 border-b-2 font-bold rounded-md text-white bg-green-600
             hover:scale-[1.02]">
-                <label for="loadImage" class="w-full h-full cursor-pointer">Agregar imagen</label>
-                <input name="taskImage" id="loadImage" type="file" class="hidden"/>
+                <label for="load-image" class="w-full h-full cursor-pointer">Agregar imagen</label>
+                <input name="taskImage" id="load-image" type="file" class="hidden"/>
             </button>
         </figure>
        <section class="flex flex-col gap-2">
@@ -24,12 +24,12 @@
                 <input name="title" id="title" type="text" class="focus:outline-none border-2 rounded-md border-green-600 h-10 w-72 focus:border-green-500 pl-2 font-medium text-black/70" />
             </div>
             <div class="self-center flex flex-col">
-                <label for="title" class="relative top-3 left-1 w-44 bg-white font-bold text-green-700">Descripcion de la tarea</label>
-                <textarea name="description" class="focus:outline-none border-2 rounded-md border-green-600 focus:border-green-500 pl-2 w-72 h-20"></textarea>
+                <label for="description" class="relative top-3 left-1 w-44 bg-white font-bold text-green-700">Descripcion de la tarea</label>
+                <textarea id="description" name="description" class="focus:outline-none border-2 rounded-md border-green-600 focus:border-green-500 pl-2 w-72 h-20"></textarea>
             </div>
             <div class="self-center flex flex-col gap-1 mt-2">
                 <label class=" bg-white font-bold text-green-700">Nivel de importancia</label>
-                <select name="level" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
+                <select id="level" name="level" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
                     <option value="">Importante</option>
                     <option value="">Medio importante</option>
                     <option value="">Poco importante</option>
@@ -37,7 +37,7 @@
             </div>
             <div class="self-center flex flex-col gap-1 mt-2">
                 <label class="bg-white font-bold text-green-700">Categoria</label>
-                <select name="categorie" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
+                <select id="category" name="category" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
                 {% for category in categories %}
                  <option>{{ category.category_name }}</option>
                 {% endfor %}
@@ -45,9 +45,12 @@
             </div>
             <div class="self-center flex flex-col mt-2 gap-1">
                 <label class="bg-white font-bold text-green-700">fecha de realizacion</label>
-                <input  name="date" type="date" class="focus:outline-none border-2 rounded-md border-green-600 text-green-600 w-72 font-bold p-1" />
+                <input id="date" name="date" type="date" class="focus:outline-none border-2 rounded-md border-green-600 text-green-600 w-72 font-bold p-1" />
             </div>
-            <button class="w-72 border-b-2 h-12 font-bold text-xl bg-green-700 text-white self-center rounded-md hover:scale-[1.02]">Crear</button>
+            <span class="text-sm text-red-600 self-center">{{ error }}</span>
+            <button 
+            type="button"
+            id="create-task-button" class="w-72 border-b-2 h-12 font-bold text-xl bg-black/70 text-white self-center rounded-md hover:scale-[1.02]">Crear</button>
        </section>
     </form>
 </section>
