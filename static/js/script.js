@@ -9,6 +9,8 @@ const inputDescription = document.getElementById('description')
 const inputLevel = document.getElementById('level')
 const inputCategory = document.getElementById('category')
 const inputDate = document.getElementById('date')
+const token = document.querySelector('[name="csrfmiddlewaretoken"]');
+
 
 const changePreviewImage = ( event ) => {
     previewIamge.src = window.URL.createObjectURL(event.target.files[0])
@@ -20,20 +22,44 @@ inputLoadImage.addEventListener( 'change' , changePreviewImage )
 
 
 const onValidateInput= ( event )=>{
-    
+   
     const inputs = [ inputImage, inputTitle, inputDescription, inputCategory, inputDate, inputLevel ]
 
-    let numberInputs = 0 
+    let numberInputs = 0
+
     while( inputs.length >= numberInputs ){
-        if( inputs[numberInputs].value?.length > 0 ){
+        
+        if( inputs[numberInputs]?.value?.length > 0 ){
            numberInputs = numberInputs + 1
         }
-        break
+        else if ( inputs[numberInputs]?.value?.length <= 0 ){
+            break
+        }
+        else{
+            break
+        }
     }
-    console.log(numberInputs)
+
     if( numberInputs === 6 ){
         event.target.disabled = false
         event.target.style.backgroundColor = 'rgb(21 128 61)'
+        
+        const formData = new URLSearchParams();
+        formData.append('title', inputTitle)
+        formData.append('description', inputDescription)
+        formData.append('level', inputLevel)
+        formData.append('taskImage', inputImage)
+        formData.append('category', inputCategory)
+        formData.append('date', inputDate)
+
+        fetch('/task/create/', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': token.value
+            },
+            body: formData
+        })
     }
 }
 

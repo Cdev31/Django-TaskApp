@@ -30,9 +30,9 @@
             <div class="self-center flex flex-col gap-1 mt-2">
                 <label class=" bg-white font-bold text-green-700">Nivel de importancia</label>
                 <select id="level" name="level" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
-                    <option value="">Importante</option>
-                    <option value="">Medio importante</option>
-                    <option value="">Poco importante</option>
+                    <option >Importante</option>
+                    <option>Medio importante</option>
+                    <option>Poco importante</option>
                 </select>
             </div>
             <div class="self-center flex flex-col gap-1 mt-2">
@@ -40,6 +40,7 @@
                 <select id="category" name="category" class="focus:outline-none border-2 p-1 rounded-md w-72 font-bold border-green-600 text-green-600">
                 {% for category in categories %}
                  <option>{{ category.category_name }}</option>
+                 <input value="{{ category.id }}" class="hidden"/>
                 {% endfor %}
                 </select>
             </div>
