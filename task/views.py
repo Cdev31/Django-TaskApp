@@ -1,31 +1,24 @@
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from .models import Task, Category
 from .load_image import load
+import datetime
 
 @login_required
 def task( request:HttpRequest ):
+
+    task = Task.objects.filter( user=request.user )
+    print(task)
+
     return render( 
         request=request, 
         template_name='task.html', 
         context= {
-            'tasks': [
-                {
-                    'id':1
-                },
-                {
-                    'id':2
-                },
-                {
-                    'id':3
-                },
-                {
-                    'id':4
-                }
-            ]
-          }
+            'tasks': task
+            }
         )
 
 @login_required
@@ -57,20 +50,25 @@ def create( request: HttpRequest ):
                         )
     elif request.method == 'POST':
         try:
-            url = load( request.FILES['taskImage'] )
+            url = load( request.FILES.get('taskImage') )
             task = request.POST
-            new_task = Task( title=task['title'], description=task['description'],
-                            image= url, important_level=task['level'], date_completed=task['date'],
-                            category=task['category']
+            date_completed_str = task.get('date')
+            date_completed = timezone.make_aware(datetime.datetime.strptime(date_completed_str, '%Y-%m-%d'))
+            category = Category.objects.get( id=int(task.get('category')) )
+            new_task = Task( title=task.get('title'), description=task.get('description'),user=request.user,
+                            image=url, important_level=task.get('level'), date_completed=date_completed,
+                            category=category
                             )
             new_task.save()
-            redirect('/task')
-        except:
+            return redirect('/task')
+        except Exception as error:
+            print(error)
+            categories = Category.objects.filter( user= request.user )
             return render( request=request, 
                           template_name='create_task.html',
                             context={
                            'categories': categories,
-                           'error': 'Campos invalidos'
+                           'error': error
                         })
 
 

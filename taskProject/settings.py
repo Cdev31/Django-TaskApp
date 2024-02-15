@@ -143,3 +143,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     'taskProject.backends.EmailAuthBackend'
 ]
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000 

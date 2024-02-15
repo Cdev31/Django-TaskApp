@@ -10,7 +10,7 @@ const inputLevel = document.getElementById('level')
 const inputCategory = document.getElementById('category')
 const inputDate = document.getElementById('date')
 const token = document.querySelector('[name="csrfmiddlewaretoken"]');
-
+const form = document.getElementById('form-create-task')
 
 const changePreviewImage = ( event ) => {
     previewIamge.src = window.URL.createObjectURL(event.target.files[0])
@@ -44,22 +44,23 @@ const onValidateInput= ( event )=>{
         event.target.disabled = false
         event.target.style.backgroundColor = 'rgb(21 128 61)'
         
-        const formData = new URLSearchParams();
-        formData.append('title', inputTitle)
-        formData.append('description', inputDescription)
-        formData.append('level', inputLevel)
-        formData.append('taskImage', inputImage)
-        formData.append('category', inputCategory)
-        formData.append('date', inputDate)
+        const formData = new FormData(form)
+        formData.append('title', inputTitle.value)
+        formData.append('description', inputDescription.value)
+        formData.append('level', inputLevel.value)
+        formData.append('taskImage', inputImage.files[0])
+        formData.append('category', inputCategory.options[inputCategory.selectedIndex].id )
+        formData.append('date', inputDate.value)
 
         fetch('/task/create/', {
             method: 'POST',
             headers:{
-                'Content-Type': 'application/x-www-form-urlencoded',
                 'X-CSRFToken': token.value
             },
             body: formData
         })
+
+       // window.location.href ='/task'
     }
 }
 

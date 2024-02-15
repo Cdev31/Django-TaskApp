@@ -1,6 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,venv,linux,macos,microsoftoffice
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,venv,linux,macos,microsoftoffice
-
+static/CACHE/
 ### Django ###
 *.log
 *.pot
