@@ -4,7 +4,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Task, Category
-from .load_image import load
+from .load_image import load, delete
 import datetime
 
 @login_required
@@ -66,6 +66,7 @@ def create( request: HttpRequest ):
 def delete_task( request: HttpRequest, id: int ):
     try:
         task = get_object_or_404( Task, pk=id, user=request.user )
+        delete( task.image )
         task.delete()
         return redirect('/task/')
     except Exception as err:

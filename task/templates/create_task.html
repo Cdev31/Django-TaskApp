@@ -6,14 +6,22 @@
 
 {% block content %}
 <section>
-    <form id="form-create-task" class="flex flex-col gap-1 sm:flex-row" method="post"  enctype="multipart/form-data">
+    
+    <form id="form-create-task" class="flex flex-col justify-center gap-1 sm:flex-row" method="post"  enctype="multipart/form-data">
         {% csrf_token %}
-        <figure class="flex flex-col gap-1">
-            <div id="preview" class="flex border-green-600 border-dashed justify-center border-2 self-center h-44 w-44 absolute">
+        <a 
+        href="/task/"
+        class="border-2 rounded-full h-8 w-8 pl-[2px] pt-[2px] cursor-pointer ml-2 border-black/80 hover:scale-[1.02]">
+            <i class="material-symbols-outlined w-full h-full text-black/80">
+            arrow_back
+            </i>
+        </a>
+        <figure class="flex flex-col gap-1 self-center sm:mr-14">
+            <div id="preview" class="flex border-green-600 border-dashed justify-center border-2 self-center h-44 w-44 sm:h-72 sm:w-64 absolute">
             </div>
-            <img src="" id="previewImage" class="h-44 self-center rounded-md" />
+            <img src="" id="previewImage" class="h-44 w-44 sm:h-72 sm:w-64 self-center rounded-md" />
             <button type="button" class=" cursor-pointer self-center p-1 border-b-2 font-bold rounded-md text-white bg-green-600
-            hover:scale-[1.02]">
+            hover:scale-[1.02] sm:h-10 sm:text-xl">
                 <label for="load-image" class="w-full h-full cursor-pointer">Agregar imagen</label>
                 <input name="taskImage" id="load-image" type="file" class="hidden"/>
             </button>
@@ -25,7 +33,7 @@
             </div>
             <div class="self-center flex flex-col">
                 <label for="description" class="relative top-3 left-1 w-44 bg-white font-bold text-green-700">Descripcion de la tarea</label>
-                <textarea id="description" name="description" class="focus:outline-none border-2 rounded-md border-green-600 focus:border-green-500 pl-2 w-72 h-20 pt-2"></textarea>
+                <textarea id="description" name="description" class="focus:outline-none border-2 rounded-md border-green-600 focus:border-green-500 pl-2 w-72 h-20 pt-2 font-medium text-black/70"></textarea>
             </div>
             <div class="self-center flex flex-col gap-1 mt-2">
                 <label class=" bg-white font-bold text-green-700">Nivel de importancia</label>

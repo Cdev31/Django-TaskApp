@@ -1,12 +1,13 @@
 import pyrebase
+from .config import config
 
 config = {
-    "apiKey": "AIzaSyBy47Nu-laAdksU_lyXC4FG-jilAsv3NZM",
-    "authDomain": "rooms-8a116.firebaseapp.com",
-    "projectId": "rooms-8a116",
-    "storageBucket": "rooms-8a116.appspot.com",
-    "messagingSenderId": "945432905949",
-    "appId": "1:945432905949:web:63b529754e504df3ca3334",
+    "apiKey": config['api_key'],
+    "authDomain": config['auth_domain'],
+    "projectId": config['project_id'],
+    "storageBucket": config['storage_bucket'],
+    "messagingSenderId": config['messaging_sender_id'],
+    "appId": config['app_id'],
     "databaseURL" : ""
 }
 

@@ -11,8 +11,8 @@
         arrow_back
         </i>
     </a>
-    <h2 class="text-2xl bg-green-800 text-white m-1 rounded-md text-center font-bold">{{ task.title }}</h2>
-    <figure class="p-1 h-56">
+    <h2 class="text-2xl bg-green-800 lg:text-3xl text-white m-1 rounded-md text-center font-bold">{{ task.title }}</h2>
+    <figure class="p-1 h-56 sm:h-72 lg:h-80">
       <img class="h-full w-full" src="{{ task.image }}"/>
     </figure>
     {% if task.done != True %}
@@ -26,8 +26,8 @@
       {% endif %}
    
     <section class="flex flex-col gap-2 p-1">
-       <p class="font-bold text-black/80 text-xl">{{ task.description }}</p>
-       <div class="flex gap-4">
+       <p class="font-bold text-black/80 text-xl self-center sm:text-2xl lg:text-3xl">{{ task.description }}</p>
+       <div class="flex gap-4 sm:gap-8 sm:self-center sm:text-lg lg:text-xl">
           <p class="flex flex-col gap-1">
             <span class="font-bold text-green-900">Nivel de importancia</span>
             <span class="font-bold text-green-900">Fecha de creacion:</span>
@@ -39,12 +39,9 @@
             <span class="font-semibold text-black/70">{{ task.date_completed }}</span>
           </p>
        </div>
-       <div class="flex flex-col gap-1 mt-5">
-         <h2 class="self-center text-xl font-bold text-black/80">Categoria</h2>
-         <p class="rounded-md p-1 text-center bg-green-700 text-white font-bold">Economico</p>
-       </div>
-       <div class="flex flex-col">
-          <button class="self-end font-bold rounded-md h-8 mr-2 w-40 bg-blue-700 text-white hover:scale-[1.02]">Actualizar</button>
+       <div class="flex flex-col gap-1 mt-5 sm:self-center">
+         <h2 class="self-center text-xl font-bold sm:text-xl lg:text-2xl text-black/80">Categoria</h2>
+         <p class="rounded-md p-1 text-center sm:text-xl lg:text-2xl bg-green-700 text-white font-bold">{{ task.category.category_name  }}</p>
        </div>
     </section> 
   </section>

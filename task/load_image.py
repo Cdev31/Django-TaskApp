@@ -1,7 +1,7 @@
+from urllib.parse import urlparse, parse_qs
 from .firebase import storage
 from typing import BinaryIO
 import datetime
-
 
 def load( file: BinaryIO ):
     file_save = file.read()
@@ -12,9 +12,13 @@ def load( file: BinaryIO ):
     return url
     
     
-def delete( file_name: str ):
+def delete( filename: str ):
     try:
-        storage.delete(file_name)
+        parsed_url = urlparse(filename)
+        query_params = parse_qs(parsed_url.query)
+        token = query_params.get('token', [])[0]
+        url = parsed_url.path.split("/")[-1]
+        storage.delete(f'Tasks/{url.replace("Tasks%2F", "")}', token=token)
         return True
     except Exception as error:
         print(error)
