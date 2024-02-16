@@ -1,5 +1,7 @@
 {% extends '_base.html' %}
 
+{% load compress %}
+{% load static %}
 
 {% block content %}
 <section class="h-[80vh] overflow-y-auto">
@@ -11,32 +13,41 @@
             {% for task in tasks %}
             <a href="/task/{{ task.id }}/">
                 <li class="flex flex-col sm:flex-row gap-2 border-b-2 self-center p-1 rounded-md hover:scale-[1.02] cursor-pointer">
-                    <figure class=" sm:w-48">
+                    <figure class=" sm:w-48 h-44">
                         <img 
                         class="w-full h-full rounded-md"
                         src="{{ task.image }}" />
                     </figure>
                     <div class="flex flex-col gap-1">
-                        <p class="text-sm flex-end text-white bg-green-600 rounded-md self-end p-1 font-bold">23-febrero-2023</p>
-                        
+                        <p class="text-sm flex-end text-white bg-green-600 rounded-md self-end p-1 font-bold">{{ task.created }}</p>
                     <div class="flex">
-                            <h2 class="rounded-md p-1 text-black/90 text-2xl font-black">Titulo de la tarea</h2>
-                            <span class="text-sm self-center font-bold text-red-700">(sin realizar) </span>      
+                            <h2 class="rounded-md p-1 text-black/90 text-2xl font-black">{{ task.title }}</h2>
+                            {% if task.done != True %}
+                            <span class="text-sm self-center font-bold text-red-700">
+                            (sin realizar)
+                            </span> 
+                            {% else %}
+                            <span class="text-sm self-center font-bold text-green-700">
+                            (realizada)
+                            </span> 
+                            {% endif %}     
                     </div>
                         <p class="flex font-medium mt-2 text-black/80">
-                            Descripcion de la tarea que no debe ser tan larga talvez asi
+                            {{ task.description }}
                         </p>
                         <p class="flex gap-1 text-sm font-medium text-black/80">
                             <span class="font-semibold">fecha de realizacion:</span>
-                            <span>23-febrero-2023</span>
+                            <span>{{ task.date_completed }}</span>
                         </p>
+            </a>        
                         <div class="flex gap-1 m-1 self-end">
-                            <button class="p-1 text-sm lg:text-normal text-red-600 font-bold rounded-md border-2 border-red-600 hover:scale-[1.02] hover:bg-red-600/50">Eliminar</button>
-                            <button class="p-1 text-sm lg:text-normal text-blue-600 font-bold rounded-md border-2 border-blue-600 hover:scale-[1.02] hover:bg-blue-600/50">Finalizar</button>
+                            <button class="p-1 eliminated-task text-sm lg:text-normal text-red-600 font-bold rounded-md border-2 border-red-600 hover:scale-[1.02] hover:bg-red-600/50">Eliminar</button>
+                            <input class="hidden" value="{{ task.id }}"/>
+                            <button class="p-1 completed-task text-sm lg:text-normal text-blue-600 font-bold rounded-md border-2 border-blue-600 hover:scale-[1.02] hover:bg-blue-600/50">Finalizar</button>
+                            <input class="hidden" value="{{ task.id }}"/>
                         </div>
                     </div>
                 </li>
-            </a>
             {% endfor %}
         {% endif %}
     </ul>
@@ -47,4 +58,49 @@ text-center text-3xl font-bold hover:animate-spin">
         <i class="material-icons text-white ">add</i>
     </a>
 </button>
+
+<div id="eliminated-task-modal" class="absolute hidden w-full flex-col h-full bg-black/20 top-0 justify-center">
+    <div id="close-eliminated-modal" class=" w-full flex flex-col text-red-700 cursor-pointer hover:scale-[1.02]">
+        <i class="material-symbols-outlined self-end pr-10">
+          cancel
+        </i>
+    </div>
+    <div class="bg-white self-center h-56 p-1  flex flex-col gap-2 justify-center rounded-md">
+        <h2 class="text-xl mb-5 text-black/70 self-center font-bold">Deseas eliminar esta tarea?</h2>
+        <p class="text-sm text-black/70 font-semibold self-center">La tarea se eliminara permanentemente</p>
+        <span class="text-sm font-bold text-red-600 self-center">{{ error }}</span> 
+        <form method="get" class="w-full">
+            <button 
+            class="confirmation-eliminated font-bold text-white bg-red-600 rounded-md h-10 w-full 
+            hover:scale-[1.02]">Confirmar</button>
+            <input id="task-id" type="text" class="hidden" />
+        </form>
+    </div>
+</div>
+
+<div id="completed-task-modal" class="absolute w-full hidden flex-col h-full bg-black/20 top-0 justify-center">
+    <div id="close-completed-eliminated-modal" class=" w-full flex flex-col text-red-700 cursor-pointer hover:scale-[1.02]">
+        <i class="material-symbols-outlined self-end pr-10">
+          cancel
+        </i>
+    </div>
+    <div class="bg-white self-center h-56 p-1  flex flex-col gap-2 justify-center rounded-md">
+        <h2 class="text-xl mb-5 text-black/70 self-center font-bold">Deseas completar esta tarea?</h2>
+        <p class="text-sm text-black/70 font-semibold self-center">La tarea se completara permanentemente</p>
+        <span class="text-sm font-bold text-red-600 self-center">{{ error }}</span> 
+        <form method="get" class="w-full">
+            <button 
+            class="confirmation-completed font-bold text-white bg-green-600 rounded-md h-10 w-full 
+            hover:scale-[1.02]">Confirmar</button>
+            <input id="task-completed-id" type="text" class="hidden" />
+        </form>
+    </div>
+</div>
 {% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/openDeleteTaskModal.js' %}"></script>
+<script src="{% static 'js/openDoneTaskModal.js' %}"></script>
+
+{% endblock %}
+

@@ -11,7 +11,6 @@ import datetime
 def task( request:HttpRequest ):
 
     task = Task.objects.filter( user=request.user )
-    print(task)
 
     return render( 
         request=request, 
@@ -22,21 +21,13 @@ def task( request:HttpRequest ):
         )
 
 @login_required
-def detail_task( request, id ):
-    newTask = {}
-    tasks = [
-        { 'id':1, 'desc': 'comp1' },
-        { 'id':2, 'desc': 'comp2' },
-        { 'id':3, 'desc': 'comp3' },
-        { 'id':4, 'desc': 'comp4' }
-    ]
-    for task in tasks:
-        if task['id'] == id:
-            newTask.update(task)
-            break
-    return render( request, 'detail_task.html', {
-        'task': newTask
-    } )
+def detail_task( request: HttpRequest, id: int ):
+    task = get_object_or_404(Task, id=id, user=request.user )
+    return render( request=request, 
+                   template_name='detail_task.html', 
+                   context={
+                        'task': task
+                    })
 
 @login_required
 def create( request: HttpRequest ):
@@ -71,8 +62,32 @@ def create( request: HttpRequest ):
                            'error': error
                         })
 
+@login_required
+def delete_task( request: HttpRequest, id: int ):
+    try:
+        task = get_object_or_404( Task, pk=id, user=request.user )
+        task.delete()
+        return redirect('/task/')
+    except Exception as err:
+        return render( request=request, 
+                template_name='task.html', 
+                context={
+                    'error': err
+                }) 
 
-
+@login_required
+def completed_task( request: HttpRequest, id: int ):
+    try:
+        task = get_object_or_404( Task, pk=id, user=request.user )
+        task.done = True
+        task.save()
+        return redirect('/task/')
+    except Exception as err:
+        return render( request=request, 
+                template_name='task.html', 
+                context={
+                    'error': err
+                }) 
 
 @login_required
 def categories( request: HttpRequest ):
@@ -117,17 +132,15 @@ def create_category( request: HttpRequest ):
         
 @login_required
 def delete_category( request: HttpRequest, id: int ):
-
     try:
         category = get_object_or_404( Category, pk=id, user=request.user )
         category.delete()
-        redirect('/task/categories/')
+        return redirect('/task/categories/')
     except Exception as err:
-        render( request=request, 
+        return render( request=request, 
                 template_name='categories.html', 
                 context={
                     'error': err
-                })
-    redirect('/task')    
+                })   
 
 

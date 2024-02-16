@@ -3,7 +3,49 @@
 
 
 {% block content %}
-  <section>
-    <h2>{{ task.desc }}</h2>
+  <section class="flex flex-col w-full h-[75vh] gap-1 overflow-y-auto">
+    <a 
+    href="/task/"
+    class="border-2 rounded-full h-8 w-8 pl-[2px] pt-[2px] cursor-pointer ml-2 border-black/80 hover:scale-[1.02]">
+        <i class="material-symbols-outlined w-full h-full text-black/80">
+        arrow_back
+        </i>
+    </a>
+    <h2 class="text-2xl bg-green-800 text-white m-1 rounded-md text-center font-bold">{{ task.title }}</h2>
+    <figure class="p-1 h-56">
+      <img class="h-full w-full" src="{{ task.image }}"/>
+    </figure>
+    {% if task.done != True %}
+      <span class="text-sm font-bold self-end text-red-700 pr-2">
+          (sin realizar)
+      </span> 
+      {% else %}
+      <span class="text-sm font-bold self-end text-green-700 pr-2">
+      (realizada)
+      </span> 
+      {% endif %}
+   
+    <section class="flex flex-col gap-2 p-1">
+       <p class="font-bold text-black/80 text-xl">{{ task.description }}</p>
+       <div class="flex gap-4">
+          <p class="flex flex-col gap-1">
+            <span class="font-bold text-green-900">Nivel de importancia</span>
+            <span class="font-bold text-green-900">Fecha de creacion:</span>
+            <span class="font-bold text-green-900">Fecha de finalizacion:</span>
+          </p>
+          <p class="flex flex-col gap-1">
+            <span class="font-semibold text-black/70">{{ task.important_level }}</span>
+            <span class="font-semibold text-black/70">{{ task.created }}</span>
+            <span class="font-semibold text-black/70">{{ task.date_completed }}</span>
+          </p>
+       </div>
+       <div class="flex flex-col gap-1 mt-5">
+         <h2 class="self-center text-xl font-bold text-black/80">Categoria</h2>
+         <p class="rounded-md p-1 text-center bg-green-700 text-white font-bold">Economico</p>
+       </div>
+       <div class="flex flex-col">
+          <button class="self-end font-bold rounded-md h-8 mr-2 w-40 bg-blue-700 text-white hover:scale-[1.02]">Actualizar</button>
+       </div>
+    </section> 
   </section>
 {% endblock %}

@@ -59,8 +59,7 @@ const onValidateInput= ( event )=>{
             },
             body: formData
         })
-
-       // window.location.href ='/task'
+        .then(()=> window.location.href ='/task')
     }
 }
 
